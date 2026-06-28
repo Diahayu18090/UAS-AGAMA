@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Tauhid – Diah Ayu Lestari</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gd:#1a3c2e;--gm:#2d6a4f;--g:#40916c;
+  --gold:#c9a84c;--gl:#f0d89a;
+  --cr:#faf7f0;--cr2:#f0ead8;
+  --tx:#1e1e1e;--mu:#666;
+  --wh:#fff;--bo:#ddd5c2;
+  --sw:260px;--tb:56px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;background:var(--cr);color:var(--tx);font-size:15px;line-height:1.75;display:flex;flex-direction:column;min-height:100vh}
+a{color:var(--g);text-decoration:none}
+a:hover{color:var(--gd);text-decoration:underline}
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--tb);background:var(--gd);display:flex;align-items:center;justify-content:space-between;padding:0 20px 0 0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.tb-brand{width:var(--sw);flex-shrink:0;display:flex;align-items:center;gap:12px;padding:0 20px;border-right:1px solid rgba(255,255,255,.1)}
+.tb-ic{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--gd)}
+.tb-brand h1{font-family:'Merriweather',serif;font-size:16px;color:#fff;line-height:1.2;white-space:nowrap}
+.tb-brand span{font-size:10px;color:rgba(255,255,255,.5);display:block}
+.tb-right{display:flex;align-items:center;gap:16px;color:rgba(255,255,255,.7);font-size:13px}
+.tb-right a{color:rgba(255,255,255,.7)}
+.tb-right a:hover{color:var(--gold);text-decoration:none}
+.burger{display:none;background:none;border:none;cursor:pointer;color:#fff;font-size:22px;padding:4px 8px;line-height:1}
+/* SIDEBAR */
+.sidebar{position:fixed;top:var(--tb);left:0;bottom:0;width:var(--sw);background:var(--gd);overflow-y:auto;z-index:100;transition:transform .3s ease}
+.sb-sec{padding:14px 0 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-sec:last-child{border-bottom:none}
+.sb-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);padding:0 20px 8px}
+.sidebar button{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);transition:background .15s,color .15s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+.sidebar button:hover{background:rgba(255,255,255,.07);color:#fff}
+.sidebar button.active{background:var(--gm);color:#fff;border-left:3px solid var(--gold);padding-left:17px}
+.sb-prof{padding:20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-av{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:var(--gd)}
+.sb-name{font-size:13px;color:#fff;font-weight:600;line-height:1.3}
+.sb-role{font-size:11px;color:rgba(255,255,255,.5)}
+.ayat-box{background:linear-gradient(135deg,var(--gm),#1a4a30);border-radius:8px;padding:16px;margin:12px 20px;text-align:center}
+.ayat-box .aa{font-family:'Amiri',serif;font-size:18px;direction:rtl;color:#fff;line-height:2;margin-bottom:8px}
+.ayat-box .at{font-size:11px;color:rgba(255,255,255,.75);font-style:italic}
+.ayat-box .aref{font-size:10px;color:var(--gl);margin-top:4px;font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:8px 20px 16px}
+.tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:11px;padding:4px 10px;border-radius:20px;cursor:pointer;border:none}
+.tag:hover{background:var(--gm);color:#fff}
+/* LAYOUT */
+.main{margin-left:var(--sw);margin-top:var(--tb);flex:1}
+.footer{margin-left:var(--sw);background:var(--gd);color:rgba(255,255,255,.6);text-align:center;padding:18px;font-size:13px}
+.footer a{color:var(--gl)}
+.page{display:none}
+.page.active{display:block}
+/* PAGE HEADER */
+.ph{background:linear-gradient(135deg,var(--gd),var(--gm));padding:32px 36px;color:#fff}
+.ph.gold{background:linear-gradient(135deg,#7b5c1e,#a67c3a)}
+.ph .ey{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gl);margin-bottom:6px}
+.ph h2{font-family:'Merriweather',serif;font-size:26px;margin-bottom:6px}
+.ph p{font-size:14px;color:rgba(255,255,255,.75);max-width:600px}
+.ct{padding:32px 36px;max-width:860px}
+/* CARD */
+.card{background:var(--wh);border:1px solid var(--bo);border-radius:8px;overflow:hidden;margin-bottom:24px}
+.ch{padding:20px 24px;border-bottom:1px solid var(--bo);display:flex;align-items:flex-start;gap:14px}
+.ch .chi{width:42px;height:42px;border-radius:8px;background:var(--gd);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ch h3{font-family:'Merriweather',serif;font-size:17px;color:var(--gd);margin-bottom:4px}
+.ch p{font-size:13px;color:var(--mu)}
+.cb{padding:24px}
+/* PROFILE */
+.pw{display:flex;gap:24px;align-items:flex-start}
+.pp{width:100px;height:100px;border-radius:50%;background:var(--cr2);border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:40px;flex-shrink:0}
+.pn{font-family:'Merriweather',serif;font-size:22px;color:var(--gd);margin-bottom:4px}
+.bdg{display:inline-block;background:var(--g);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.ir{display:flex;gap:8px;align-items:flex-start;margin-bottom:10px}
+.ir .io{color:var(--g);font-size:15px;flex-shrink:0;margin-top:2px}
+.ir strong{display:block;color:var(--tx);font-size:13px}
+.ir span,.ir a{color:var(--mu);font-size:13px}
+/* SYAHADAT */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.sc{background:var(--cr);border:1px solid var(--bo);border-radius:8px;padding:22px;text-align:center}
+.sc .si{font-size:28px;margin-bottom:10px}
+.sc h4{font-family:'Merriweather',serif;font-size:14px;color:var(--gd);margin-bottom:10px}
+.ar{font-family:'Amiri',serif;font-size:21px;direction:rtl;color:var(--gd);line-height:1.9;margin-bottom:10px}
+.tr{font-style:italic;font-size:13px;color:var(--mu);border-left:3px solid var(--gold);padding-left:10px;text-align:left;margin-bottom:8px}
+.dt{font-size:13px;color:var(--tx);text-align:left}
+/* STEPS */
+.sl{display:flex;flex-direction:column;gap:16px}
+.st{display:flex;gap:16px;align-items:flex-start}
+.sn{width:32px;height:32px;border-radius:50%;background:var(--gd);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.sbody h4{font-weight:700;color:var(--gd);margin-bottom:4px;font-size:14px}
+.sbody p{font-size:14px;color:var(--tx)}
+hr{border:none;border-top:1px solid var(--bo);margin:18px 0}
+/* QUOTE BOX */
+.qb{background:var(--cr);border:1px solid var(--bo);border-radius:8px;padding:22px 24px;font-size:14px;line-height:1.85;position:relative}
+.qb::before{content:'"';font-family:'Merriweather',serif;font-size:72px;color:var(--g);opacity:.12;position:absolute;top:-8px;left:14px;line-height:1}
+.ql{font-weight:700;color:var(--gd);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+/* CAROUSEL */
+.poster-wrap{background:#0d2a1e;border-radius:12px;overflow:hidden;position:relative;user-select:none}
+.slide-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.slide{min-width:100%;flex-shrink:0}
+/* S1 Cover */
+.s1{background:linear-gradient(160deg,#0d3528,#1a5c40 60%,#0d3528);padding:48px 40px;text-align:center;position:relative;overflow:hidden;min-height:440px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.s1::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L55 20L55 40L30 55L5 40L5 20Z' fill='none' stroke='%23c9a84c' stroke-width='.4' opacity='.15'/%3E%3C/svg%3E") repeat}
+.s1-orn{position:absolute;top:-20px;right:-20px;width:180px;height:180px;border:2px solid rgba(201,168,76,.2);border-radius:50%}
+.s1-orn::after{content:'';position:absolute;inset:20px;border:2px solid rgba(201,168,76,.15);border-radius:50%}
+.s1-icon{font-size:56px;margin-bottom:16px;position:relative;z-index:1}
+.s1-lbl{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);padding:5px 16px;border-radius:20px;margin-bottom:18px;position:relative;z-index:1;display:inline-block}
+.s1 h2{font-family:'Merriweather',serif;font-size:32px;color:#fff;line-height:1.25;margin-bottom:8px;position:relative;z-index:1}
+.s1 h2 em{color:var(--gold);font-style:normal}
+.s1-sub{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:28px;position:relative;z-index:1}
+.s1-box{background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:18px 22px;max-width:520px;position:relative;z-index:1}
+.s1-box .blbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:8px;font-weight:600}
+.s1-box p{font-size:13px;color:rgba(255,255,255,.85);font-style:italic;line-height:1.75}
+.s1-box .src{font-size:11px;color:var(--gold);margin-top:8px;font-weight:600}
+/* S2 Grid */
+.s2{background:linear-gradient(160deg,#0d2a1e,#1a4a30);padding:36px 32px;min-height:440px}
+.s2-title{text-align:center;margin-bottom:24px}
+.s2-title h3{font-family:'Merriweather',serif;font-size:22px;color:#fff;margin-bottom:6px}
+.s2-title p{font-size:13px;color:rgba(255,255,255,.6)}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.acard{background:var(--gold);border-radius:10px;padding:18px 16px;display:flex;align-items:flex-start;gap:12px;position:relative;overflow:hidden}
+.acard::after{content:'';position:absolute;bottom:-8px;right:-8px;width:50px;height:50px;background:rgba(255,255,255,.08);border-radius:50%}
+.acard-ico{font-size:28px;flex-shrink:0;line-height:1}
+.acard h4{font-size:14px;font-weight:700;color:#0d2a1e;margin-bottom:4px;line-height:1.3}
+.acard p{font-size:12px;color:rgba(0,0,0,.6);line-height:1.5}
+/* S3 Detail */
+.s3{background:#0d2a1e;padding:36px 32px;min-height:440px}
+.s3-title{text-align:center;margin-bottom:22px}
+.s3-title h3{font-family:'Merriweather',serif;font-size:20px;color:#fff;margin-bottom:4px}
+.s3-title p{font-size:12px;color:rgba(255,255,255,.55)}
+.dlist{display:flex;flex-direction:column;gap:11px}
+.ditem{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-left:3px solid var(--gold);border-radius:8px;padding:13px 15px}
+.ditem .dnum{width:28px;height:28px;flex-shrink:0;background:var(--gold);color:#0d2a1e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.ditem .dico{font-size:22px;flex-shrink:0}
+.ditem h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.ditem p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5}
+/* S4 Quote */
+.s4{background:linear-gradient(160deg,#0d3528,#1a5c40);padding:48px 40px;min-height:440px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.s4::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='18' fill='none' stroke='%23c9a84c' stroke-width='.3' opacity='.1'/%3E%3C/svg%3E") repeat}
+.s4-q{font-size:80px;color:var(--gold);opacity:.3;font-family:'Merriweather',serif;line-height:.8;position:relative;z-index:1;margin-bottom:8px}
+.s4-who{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:16px;position:relative;z-index:1}
+.s4-txt{font-family:'Merriweather',serif;font-size:18px;color:#fff;line-height:1.8;font-style:italic;max-width:500px;position:relative;z-index:1;margin-bottom:20px}
+.s4-src{font-size:13px;color:rgba(255,255,255,.6);background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.2);padding:8px 20px;border-radius:20px;position:relative;z-index:1}
+.s4-box{margin-top:20px;position:relative;z-index:1;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:16px 22px}
+.s4-box .blbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:8px;font-weight:600}
+.s4-box .btxt{font-family:'Amiri',serif;font-size:20px;color:#fff;direction:rtl;margin-bottom:6px}
+.s4-box .btr{font-size:12px;color:rgba(255,255,255,.7);font-style:italic}
+/* Slide Controls */
+.sctrl{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#0a1f14;border-top:1px solid rgba(255,255,255,.06)}
+.sbtn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.sbtn:hover{background:var(--gold);color:#0d2a1e;border-color:var(--gold)}
+.sdots{display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .2s,transform .2s}
+.dot.active{background:var(--gold);transform:scale(1.3)}
+.sctr{font-size:12px;color:rgba(255,255,255,.5)}
+.sbar{padding:14px 24px;background:#0a1f14;display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main,.footer{margin-left:0}
+  .burger{display:block}
+  .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+  .ov.show{display:block}
+  .sg,.agrid{grid-template-columns:1fr}
+  .pw{flex-direction:column;align-items:center;text-align:center}
+  .ct,.cb,.ph{padding:20px 18px}
+  .s1{padding:32px 20px}
+  .s1 h2{font-size:22px}
+  .s2,.s3,.s4{padding:24px 18px}
+  .s4-txt{font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="ov" id="ov" onclick="closeSb()"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-brand">
+    <button class="burger" onclick="toggleSb()">&#9776;</button>
+    <div class="tb-ic">&#9770;</div>
+    <h1>Ruang Tauhid<span>Edukasi Agama Islam</span></h1>
+  </div>
+  <div class="tb-right">
+    <span>&#128205; Jawa Barat</span>
+    <a href="mailto:diahayu4927@gmail.com">&#9993; diahayu4927@gmail.com</a>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sb">
+  <div class="sb-prof">
+    <div class="sb-av">&#129493;</div>
+    <div>
+      <div class="sb-name">Diah Ayu Lestari</div>
+      <div class="sb-role">Mahasiswa &middot; Univ. Pelita Bangsa</div>
+    </div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Menu Utama</div>
+    <button onclick="show('biodata')" id="nav-biodata" class="active">&#128100; Profil Penulis</button>
+    <button onclick="show('syahadat')" id="nav-syahadat">&#9757; Makna Syahadat</button>
+    <button onclick="show('implementasi')" id="nav-implementasi">&#128204; Implementasi</button>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Konten</div>
+    <button onclick="show('kisah')" id="nav-kisah">&#128214; Kisah Nabi Musa AS</button>
+    <button onclick="show('artikel')" id="nav-artikel">&#128196; Artikel: Hakikat Manusia</button>
+    <button onclick="show('poster')" id="nav-poster">&#128444; Poster Islami</button>
+    <button onclick="show('studi')" id="nav-studi">&#128269; Studi Kasus</button>
+    <button onclick="show('moral')" id="nav-moral">&#9997; Artikel: Nilai Moral</button>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Ayat Pilihan</div>
+    <div class="ayat-box">
+      <div class="aa">&#x648;&#x64E;&#x645;&#x64E;&#x627; &#x62E;&#x64E;&#x644;&#x64E;&#x642;&#x652;&#x62A;&#x64F; &#x627;&#x644;&#x652;&#x62C;&#x650;&#x646;&#x651;&#x64E; &#x648;&#x64E;&#x627;&#x644;&#x652;&#x625;&#x650;&#x646&#x652;&#x633;&#x64E; &#x625;&#x650;&#x644;&#x651;&#x64E;&#x627; &#x644;&#x650;&#x64A;&#x64E;&#x639;&#x652;&#x628;&#x64F;&#x62F;&#x64F;&#x648;&#x646;&#x650;</div>
+      <div class="at">"Dan Aku tidak menciptakan jin dan manusia melainkan supaya mereka mengabdi kepada-Ku."</div>
+      <div class="aref">QS. Adz-Dzariyat: 56</div>
+    </div>
+    <div class="tags">
+      <button class="tag" onclick="show('syahadat')">Syahadat</button>
+      <button class="tag" onclick="show('implementasi')">Tauhid</button>
+      <button class="tag" onclick="show('kisah')">Nabi Musa</button>
+      <button class="tag" onclick="show('artikel')">Hakikat</button>
+      <button class="tag" onclick="show('studi')">Muamalah</button>
+      <button class="tag" onclick="show('moral')">Nilai Moral</button>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- PAGE: BIODATA -->
+<div class="page active" id="biodata">
+  <div class="ph"><div class="ey">Tentang Penulis</div><h2>Profil Diah Ayu Lestari</h2><p>Mahasiswa yang berdedikasi berbagi ilmu dasar keislaman melalui halaman edukasi ini.</p></div>
+  <div class="ct">
+    <div class="card"><div class="cb">
+      <div class="pw">
+        <div class="pp">&#129493;</div>
+        <div style="flex:1">
+          <div class="pn">Diah Ayu Lestari</div>
+          <span class="bdg">Mahasiswa</span>
+          <p style="font-size:14px;color:var(--mu);margin-bottom:16px">Halo! Saya berdedikasi untuk berbagi ilmu mengenai dasar-dasar keislaman. Melalui halaman ini, kita akan mempelajari rukun Islam yang pertama, yaitu Syahadat, sebagai fondasi utama dalam beragama dan berakhlak.</p>
+          <div class="ir"><span class="io">&#127891;</span><div><strong>Pendidikan</strong><span>Universitas Pelita Bangsa</span></div></div>
+          <div class="ir"><span class="io">&#9993;</span><div><strong>Email</strong><a href="mailto:diahayu4927@gmail.com">diahayu4927@gmail.com</a></div></div>
+          <div class="ir"><span class="io">&#128205;</span><div><strong>Lokasi</strong><span>Jawa Barat, Indonesia</span></div></div>
+        </div>
+      </div>
+    </div></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button onclick="show('syahadat')" style="background:var(--gd);color:#fff;border:none;padding:11px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">Mulai Belajar Syahadat &#8594;</button>
+      <button onclick="show('poster')" style="background:var(--gold);color:var(--gd);border:none;padding:11px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">Lihat Poster Islami</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SYAHADAT -->
+<div class="page" id="syahadat">
+  <div class="ph"><div class="ey">Akidah Islam</div><h2>Memahami Makna Syahadat</h2><p>Gerbang utama masuknya seseorang ke dalam Islam &mdash; bukan sekadar ucapan, melainkan komitmen hidup.</p></div>
+  <div class="ct">
+    <div class="card">
+      <div class="ch"><div class="chi">&#9757;</div><div><h3>Dua Kalimat Syahadat</h3><p>Fondasi keimanan seorang Muslim</p></div></div>
+      <div class="cb">
+        <p style="margin-bottom:16px;font-size:14px">Syahadat bukan sekadar ucapan, melainkan komitmen hidup yang mencakup pengakuan hati, ikrar lisan, dan pembuktian lewat perbuatan.</p>
+        <div class="sg">
+          <div class="sc"><div class="si">&#9757;</div><h4>Syahadat Tauhid</h4><p class="ar">&#x623;&#x634;&#x647;&#x62F; &#x627;&#x646; &#x644;&#x627; &#x627;&#x644;&#x647; &#x627;&#x644;&#x627; &#x627;&#x644;&#x644;&#x647;</p><p class="tr">"Aku bersaksi bahwa tidak ada Tuhan yang berhak disembah selain Allah."</p><p class="dt">Menafikan semua sembahan selain Allah dan menetapkan ibadah hanya untuk-Nya.</p></div>
+          <div class="sc"><div class="si">&#128214;</div><h4>Syahadat Rasul</h4><p class="ar">&#x648;&#x627;&#x634;&#x647;&#x62F; &#x627;&#x646; &#x645;&#x62D;&#x645;&#x62F;&#x627; &#x631;&#x633;&#x648;&#x644; &#x627;&#x644;&#x644;&#x647;</p><p class="tr">"Dan aku bersaksi bahwa Muhammad adalah utusan Allah."</p><p class="dt">Mengakui Nabi Muhammad sebagai teladan dalam menjalankan perintah Allah.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: IMPLEMENTASI -->
+<div class="page" id="implementasi">
+  <div class="ph"><div class="ey">Amaliah Harian</div><h2>Implementasi Syahadat dalam Keseharian</h2><p>Syahadat harus tercermin dalam setiap aspek kehidupan seorang Muslim.</p></div>
+  <div class="ct">
+    <div class="card">
+      <div class="ch"><div class="chi">&#128204;</div><div><h3>Tiga Pilar Implementasi</h3><p>Cara nyata menghidupkan nilai syahadat</p></div></div>
+      <div class="cb">
+        <div class="sl">
+          <div class="st"><div class="sn">1</div><div class="sbody"><h4>Ikhlas (Tauhidullah)</h4><p>Melakukan segala aktivitas kebaikan hanya karena Allah, bukan karena ingin dipuji manusia (Riya). Keikhlasan adalah ruh dari setiap amal ibadah.</p></div></div>
+          <div class="st"><div class="sn">2</div><div class="sbody"><h4>Ittiba' (Mengikuti Sunnah)</h4><p>Menerapkan cara hidup Nabi dalam hal kecil, seperti makan dengan tangan kanan, bersikap jujur, dan meneladani akhlak Rasulullah SAW.</p></div></div>
+          <div class="st"><div class="sn">3</div><div class="sbody"><h4>Meninggalkan Larangan</h4><p>Menjauhi hal-hal yang dilarang agama sebagai bentuk ketaatan atas sumpah syahadat yang telah kita ikrarkan kepada Allah SWT.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: KISAH NABI MUSA -->
+<div class="page" id="kisah">
+  <div class="ph gold"><div class="ey">Kisah Para Nabi</div><h2>Kisah Nabi Musa AS</h2><p>Perjalanan panjang seorang nabi dari bayi yang dihanyutkan hingga membelah lautan.</p></div>
+  <div class="ct">
+    <div class="card"><div class="cb"><div class="sl">
+      <div class="st"><div class="sn">1</div><div class="sbody"><h4>Kisah Kelahiran</h4><p>Nabi Musa lahir di Mesir saat Raja Firaun memerintahkan pembunuhan setiap bayi laki-laki Bani Israil. Ibu Musa menghanyutkan bayi Musa dalam peti di Sungai Nil atas perintah Allah.</p></div></div>
+      <hr><div class="st"><div class="sn">2</div><div class="sbody"><h4>Bertemu Kembali Ibunya</h4><p>Peti ditemukan Siti Asiyah, istri Firaun. Atas izin Allah, hanya ibu kandung Musa yang bisa menyusuinya sehingga Yukaibid bisa merawat putranya sendiri di istana Firaun.</p></div></div>
+      <hr><div class="st"><div class="sn">3</div><div class="sbody"><h4>Ketika Dewasa</h4><p>Nabi Musa melarikan diri ke Madyan, bertemu Nabi Syuaib, menikahi putrinya, dan menetap selama 10 tahun.</p></div></div>
+      <hr><div class="st"><div class="sn">4</div><div class="sbody"><h4>Kembali ke Mesir</h4><p>Teringat kaumnya yang tertindas, Nabi Musa kembali ke Mesir untuk membebaskan Bani Israil.</p></div></div>
+      <hr><div class="st"><div class="sn">5</div><div class="sbody"><h4>Menerima Wahyu di Bukit Thursina</h4><p>Nabi Musa menerima wahyu dan mengajak Firaun ke jalan benar. Tidak satu pun tukang sihir Firaun yang mampu mengalahkan mukjizatnya.</p></div></div>
+      <hr><div class="st"><div class="sn">6</div><div class="sbody"><h4>Firaun Tenggelam di Laut Merah</h4><p>Atas perintah Allah, Nabi Musa memukul tongkat ke laut yang pun terbelah. Setelah rombongannya selamat, laut menutup kembali dan menenggelamkan seluruh pasukan Firaun.</p></div></div>
+      <hr><div class="st"><div class="sn">7</div><div class="sbody"><h4>Pertemuan dengan Nabi Khidir</h4><p>Nabi Musa bertemu Nabi Khidir yang berilmu lebih luas. Setiap tindakan Nabi Khidir yang tampak aneh ternyata memiliki hikmah mendalam dari Allah SWT.</p></div></div>
+      <hr><div class="st"><div class="sn">8</div><div class="sbody"><h4>Wafat</h4><p>Nabi Musa hidup selama 120 tahun dan wafat di Gunung Nebu, Jordania, dekat Baitul Maqdis.</p></div></div>
+      <hr><div class="st"><div class="sn">9</div><div class="sbody"><h4>Mukjizat Nabi Musa</h4><p>Tongkat berubah ular besar; tangan memancarkan sinar berkilau; mendatangkan angin topan, serbuan belalang, dan banjir atas perintah Allah SWT.</p></div></div>
+    </div></div></div>
+  </div>
+</div>
+
+<!-- PAGE: ARTIKEL HAKIKAT MANUSIA -->
+<div class="page" id="artikel">
+  <div class="ph"><div class="ey">Jurnal Keislaman</div><h2>Hakikat Manusia Dalam Konteks Agama</h2><p>Geser slide untuk membaca setiap bagian artikel secara lengkap.</p></div>
+  <div class="ct">
+    <div class="card" style="background:#0a1f14;border-color:#1a4a30">
+      <div class="poster-wrap">
+        <div class="slide-track" id="trk2">
+          <div class="slide"><div class="s1" style="min-height:480px"><div class="s1-orn"></div><div class="s1-icon">&#128196;</div><span class="s1-lbl">Artikel Ilmiah &middot; 2025</span><h2 style="font-size:26px;margin-bottom:10px">Hakikat Manusia<br>Dalam Konteks<br><em>Agama Islam</em></h2><p class="s1-sub">Diah Ayu Lestari &middot; Universitas Pelita Bangsa</p><div class="s1-box" style="max-width:520px;text-align:left"><div class="blbl">Kata Kunci</div><p style="font-style:normal;line-height:1.8">Hakikat Manusia &middot; Pandangan Islam &middot; Iman &middot; Islam &middot; Ihsan &middot; Insan Kamil</p><div class="src" style="font-size:11px;color:var(--gold);margin-top:8px;font-weight:600">&#128218; Rujukan: Islamic Studies Contemporary Issue (2023)</div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:480px"><div class="s3-title"><h3>&#128203; Abstrak</h3><p>Ringkasan keseluruhan artikel</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">A</div><div><h4>Latar Belakang</h4><p>Hakikat manusia memiliki konteks dimensi pembahasan yang luas. Dalam agama Islam, merujuk pada pemahaman tentang esensi manusia sebagai makhluk ciptaan Allah SWT yang memiliki keunikan dan potensi luar biasa &mdash; akal, fitrah, dan kebebasan berpikir serta bertindak.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">M</div><div><h4>Metode Penelitian</h4><p>Penelitian menggunakan metode kepustakaan. Data primer dari buku Islamic Studies Contemporary Issue (2023). Data sekunder berupa jurnal-jurnal terkait hakikat manusia.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">T</div><div><h4>Tujuan Penulisan</h4><p>Memahami secara mendalam hakikat manusia menurut pandangan Islam dan menerapkan konsep hakikat manusia &mdash; integrasi iman, Islam, dan ihsan &mdash; dalam kehidupan sehari-hari.</p></div></div></div></div></div>
+          <div class="slide"><div class="s2" style="min-height:480px"><div class="s2-title"><h3>A. Hakikat Manusia dalam Islam</h3><p>Esensi dan sifat dasar manusia sebagai makhluk ciptaan Allah</p></div><div class="agrid"><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#129504;</div><h4>Dimensi Filosofis</h4><p>Esensi manusia mencakup rasionalitas, moralitas, dan spiritualitas. Substansi manusia adalah tubuh, pikiran, dan jiwa yang menjadikannya unik.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#9770;</div><h4>Perspektif Islam</h4><p>Manusia adalah makhluk ciptaan Allah SWT yang paling mulia, diberi amanah sebagai khalifah di muka bumi untuk memelihara dan memperbaiki lingkungan.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128161;</div><h4>Akal &amp; Fitrah</h4><p>Allah memberikan manusia akal sebagai instrumen memahami ayat-Nya, dan fitrah sebagai kecenderungan dasar untuk mengenal dan menyembah Allah.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#127807;</div><h4>Monodualisme</h4><p>Manusia bersifat monodualisme: memiliki atribut individu namun juga membutuhkan bantuan orang lain. Hakikatnya adalah ruh, jasad, serta keberadaannya.</p></div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:480px"><div class="s3-title"><h3>B. Kedudukan Manusia dalam Islam</h3><p>Peran dan posisi manusia di muka bumi</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">1</div><div class="dico">&#128081;</div><div><h4>Khalifah di Muka Bumi</h4><p>Manusia diangkat sebagai khalifah (pemimpin) di bumi dengan amanah memelihara alam dan memperbaiki diri serta lingkungan sekitarnya sesuai QS. Al-Baqarah: 30.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">2</div><div class="dico">&#128583;</div><div><h4>Hamba Allah (Abdullah)</h4><p>Manusia berkedudukan sebagai hamba yang wajib beribadah dan taat kepada Allah SWT. Kedua peran &mdash; khalifah dan hamba &mdash; harus berjalan seimbang.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">3</div><div class="dico">&#9878;</div><div><h4>Hak dan Kewajiban</h4><p>Manusia memiliki hak untuk hidup, berkembang, dan mendapat perlindungan; serta kewajiban mematuhi norma dan memperjuangkan kebaikan dan keadilan.</p></div></div><div class="ditem" style="align-items:flex-start;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3)"><div class="dnum" style="margin-top:4px;flex-shrink:0;background:#c9a84c;color:#0d2a1e">Q</div><div><h4 style="color:#f0d89a">QS. Al-Baqarah: 30</h4><p style="color:rgba(255,255,255,.8);font-style:italic">"Sesungguhnya Aku hendak menjadikan seorang khalifah di muka bumi..." &mdash; Allah SWT berfirman kepada para Malaikat.</p></div></div></div></div></div>
+          <div class="slide"><div class="s2" style="min-height:480px"><div class="s2-title"><h3>C. Tugas, Fungsi &amp; Tujuan Manusia</h3><p>Keterkaitan erat dengan ajaran Islam tentang kehidupan</p></div><div class="agrid"><div class="acard" style="flex-direction:column;gap:8px;grid-column:1/3"><div style="display:flex;gap:12px;align-items:center"><div class="acard-ico">&#128203;</div><h4 style="font-size:16px">a. Tugas</h4></div><p>Mengembangkan potensi diri, mencari ilmu, melakukan ibadah kepada Allah SWT, mengikuti perintah-Nya, dan menjauhi larangan-Nya melalui tindakan dan perilaku yang baik.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#129309;</div><h4>b. Fungsi</h4><p>Sebagai makhluk sosial sekaligus khalifah yang bertanggung jawab atas pengelolaan sumber daya alam dengan bijaksana dan membangun masyarakat yang adil.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#127775;</div><h4>c. Tujuan</h4><p>Mencapai kebahagiaan abadi di akhirat dengan mengikuti perintah Allah, menjauhi larangan-Nya, dan melakukan amal sholeh yang mendekatkan diri kepada-Nya.</p></div></div></div></div>
+          <div class="slide"><div class="s4" style="min-height:480px"><div class="s4-q">"</div><div class="s4-who">D. Konsep Insan Kamil</div><p class="s4-txt" style="font-size:15px;margin-bottom:18px">"Sesungguhnya orang-orang yang beriman ialah mereka yang bila disebut nama Allah gemetarlah hati mereka, dan apabila dibacakan ayat-ayat-Nya bertambahlah iman mereka, dan hanya kepada Tuhanlah mereka bertawakkal."</p><div class="s4-src">QS. Al-Anfal [8]: 2-4</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px;width:100%;max-width:560px"><div class="s4-box" style="margin-top:0"><div class="blbl">Iman</div><div style="font-size:28px;margin-bottom:4px">&#129330;</div><div class="btr">Keyakinan penuh kepada Allah dan rukun iman</div></div><div class="s4-box" style="margin-top:0"><div class="blbl">Islam</div><div style="font-size:28px;margin-bottom:4px">&#128332;</div><div class="btr">Pelaksanaan syariat dan rukun Islam sepenuhnya</div></div><div class="s4-box" style="margin-top:0"><div class="blbl">Ihsan</div><div style="font-size:28px;margin-bottom:4px">&#10024;</div><div class="btr">Beribadah seolah melihat Allah atau merasa diawasi</div></div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:480px"><div class="s3-title"><h3>E. Studi Kasus: LGBT dalam Islam</h3><p>Analisis berdasarkan hakikat manusia</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">&#128204;</div><div><h4>Definisi LGBT</h4><p>LGBT (Lesbian, Gay, Bisexual, Transgender) adalah perilaku yang menyimpang dari fitrah manusia sebagaimana diciptakan Allah SWT dalam pasangan yang harmonis.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">&#9888;</div><div><h4>Perspektif Islam</h4><p>Dalam Islam, LGBT dianggap perbuatan yang menyimpang dan melanggar harkat manusia sebagai makhluk Allah yang paling mulia. Pada masa Nabi Luth AS, perbuatan ini mendapat sanksi langsung dari Allah SWT.</p></div></div><div class="ditem" style="align-items:flex-start;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3)"><div class="dnum" style="margin-top:4px;flex-shrink:0;background:#c9a84c;color:#0d2a1e">Q</div><div><h4 style="color:#f0d89a">QS. An-Naml: 54-55</h4><p style="color:rgba(255,255,255,.8);font-style:italic">"Mengapa kamu mendatangi laki-laki, bukan perempuan, untuk memenuhi syahwatmu? Sungguh, kamu adalah kaum yang melakukan perbuatan bodoh."</p></div></div></div></div></div>
+          <div class="slide"><div class="s4" style="min-height:480px"><div class="s4-who" style="font-size:13px;margin-bottom:12px">Kesimpulan Artikel</div><p class="s4-txt" style="font-size:15px;margin-bottom:20px">"Manusia adalah makhluk Allah yang paling sempurna. Kesempurnaan ini dikuatkan dengan diangkatnya manusia sebagai khalifah di muka bumi yang bertugas mengatur dan memanfaatkan alam."</p><div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:560px"><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Potensi Manusia</div><div class="btr">Emosional &middot; Fisik &middot; Akal &middot; Spiritual &mdash; harus dikembangkan sesuai fungsi dan tujuan yang diberikan Allah SWT</div></div><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Referensi</div><div class="btr">Islamic Studies Contemporary Issue (2023) &middot; QS. Al-Baqarah: 30 &middot; QS. Al-Anfal: 2-4 &middot; QS. An-Naml: 54-55</div></div></div><a href="file/Artikel Full.pdf" target="_blank" style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;background:#c0392b;color:#fff;padding:11px 26px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;position:relative;z-index:1">&#128196; Unduh PDF Artikel Lengkap</a></div></div>
+        </div>
+        <div class="sctrl"><button class="sbtn" onclick="cs(2,-1)">&#8592;</button><div class="sdots" id="d2"><div class="dot active" onclick="cg(2,0)"></div><div class="dot" onclick="cg(2,1)"></div><div class="dot" onclick="cg(2,2)"></div><div class="dot" onclick="cg(2,3)"></div><div class="dot" onclick="cg(2,4)"></div><div class="dot" onclick="cg(2,5)"></div><div class="dot" onclick="cg(2,6)"></div><div class="dot" onclick="cg(2,7)"></div></div><span class="sctr" id="c2">1 / 8</span><button class="sbtn" onclick="cs(2,1)">&#8594;</button></div>
+      </div>
+      <div class="sbar"><a href="https://maryamsejahtera.com/index.php/Religion/article/view/122/135" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gm);color:#fff;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600">&#128279; Lihat Referensi Asli</a><a href="file/Artikel Full.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#c0392b;color:#fff;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600">&#128196; Unduh PDF</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: POSTER ISLAMI -->
+<div class="page" id="poster">
+  <div class="ph"><div class="ey">Media Visual</div><h2>Poster Adab Makan &amp; Minum</h2><p>Slide interaktif berisi panduan adab makan dan minum sesuai sunnah Rasulullah SAW.</p></div>
+  <div class="ct">
+    <div class="card" style="background:#0a1f14;border-color:#1a4a30">
+      <div class="poster-wrap">
+        <div class="slide-track" id="trk1">
+          <div class="slide"><div class="s1"><div class="s1-orn"></div><div class="s1-icon">&#127869;</div><span class="s1-lbl">Sunnah Rasulullah SAW</span><h2>ADAB<br><em>MAKAN &amp; MINUM</em><br>DALAM ISLAM</h2><p class="s1-sub">Panduan berakhlak sesuai tuntunan Nabi Muhammad SAW</p><div class="s1-box"><div class="blbl">Hadis Utama</div><p>"Wahai anak muda, sebutlah nama Allah (bacalah Bismillah), makanlah dengan tangan kananmu, dan makanlah makanan yang ada di dekatmu."</p><div class="src">HR. Bukhari dan Muslim</div></div></div></div>
+          <div class="slide"><div class="s2"><div class="s2-title"><h3>&#127869; Enam Adab Utama</h3><p>Terapkan dalam setiap waktu makan dan minum</p></div><div class="agrid"><div class="acard"><div class="acard-ico">&#127869;</div><div><h4>Mulailah dengan Bismillah</h4><p>Ucapkan Bismillah sebelum memulai makan dan minum</p></div></div><div class="acard"><div class="acard-ico">&#129681;</div><div><h4>Posisi Duduk</h4><p>Makan dan minum dalam posisi duduk, bukan berdiri</p></div></div><div class="acard"><div class="acard-ico">&#128400;</div><div><h4>Gunakan Tangan Kanan</h4><p>Makan dan minum menggunakan tangan kanan</p></div></div><div class="acard"><div class="acard-ico">&#128167;</div><div><h4>Minum Perlahan</h4><p>Minum secara perlahan, tidak langsung sekaligus</p></div></div><div class="acard"><div class="acard-ico">&#128522;</div><div><h4>Tidak Berlebihan</h4><p>Makan secukupnya, tidak berlebihan dan tidak mubazir</p></div></div><div class="acard"><div class="acard-ico">&#128591;</div><div><h4>Akhiri Alhamdulillah</h4><p>Ucapkan Alhamdulillah setelah selesai makan dan minum</p></div></div></div></div></div>
+          <div class="slide"><div class="s3"><div class="s3-title"><h3>&#128203; Penjelasan Adab</h3><p>Makna dan dalil di balik setiap adab</p></div><div class="dlist"><div class="ditem"><div class="dnum">1</div><div class="dico">&#127869;</div><div><h4>Membaca Bismillah</h4><p>Mengawali makan dengan menyebut nama Allah mengundang keberkahan dan menjauhkan syaitan dari makanan kita.</p></div></div><div class="ditem"><div class="dnum">2</div><div class="dico">&#128400;</div><div><h4>Tangan Kanan</h4><p>"Janganlah kalian makan dengan tangan kiri, karena syaitan makan dengan tangan kiri." (HR. Muslim)</p></div></div><div class="ditem"><div class="dnum">3</div><div class="dico">&#128522;</div><div><h4>Tidak Berlebihan</h4><p>"...makan dan minumlah, dan janganlah berlebih-lebihan." (QS. Al-A'raf: 31)</p></div></div><div class="ditem"><div class="dnum">4</div><div class="dico">&#129681;</div><div><h4>Posisi Duduk</h4><p>Nabi melarang minum sambil berdiri. Makan dan minum duduk lebih sehat dan mencerminkan ketenangan.</p></div></div><div class="ditem"><div class="dnum">5</div><div class="dico">&#128167;</div><div><h4>Minum Perlahan</h4><p>Disunahkan minum dalam 3 tegukan, tidak langsung sekaligus. Lebih sehat dan mengikuti sunnah Nabi SAW.</p></div></div><div class="ditem"><div class="dnum">6</div><div class="dico">&#128591;</div><div><h4>Mengucapkan Alhamdulillah</h4><p>Mengakhiri makan dengan Alhamdulillah adalah bentuk syukur atas nikmat rezeki yang diberikan Allah SWT.</p></div></div></div></div></div>
+          <div class="slide"><div class="s4"><div class="s4-q">"</div><div class="s4-who">Rasulullah &#65018; bersabda</div><p class="s4-txt">"Wahai anak muda, sebutlah nama Allah (bacalah Bismillah), makanlah dengan tangan kananmu, dan makanlah makanan yang ada di dekatmu."</p><div class="s4-src">HR. Bukhari dan Muslim</div><div class="s4-box"><div class="blbl">Doa Sebelum Makan</div><div class="btxt">&#x628;&#x650;&#x633;&#x652;&#x645;&#x650; &#x627;&#x644;&#x644;&#x647;&#x650; &#x648;&#x64E;&#x639;&#x64E;&#x644;&#x649; &#x628;&#x64E;&#x631;&#x64E;&#x643;&#x64E;&#x629;&#x650; &#x627;&#x644;&#x644;&#x647;&#x650;</div><div class="btr">"Dengan nama Allah dan atas berkah Allah."</div></div><div class="s4-box" style="margin-top:12px"><div class="blbl">Doa Sesudah Makan</div><div class="btxt" style="font-size:16px">&#x627;&#x644;&#x62D;&#x645;&#x62F; &#x644;&#x644;&#x647; &#x627;&#x644;&#x630;&#x64A; &#x627;&#x637;&#x639;&#x645;&#x646;&#x627; &#x648;&#x633;&#x642;&#x627;&#x646;&#x627; &#x648;&#x62C;&#x639;&#x644;&#x646;&#x627; &#x645;&#x633;&#x644;&#x645;&#x64A;&#x646;</div><div class="btr">"Segala puji bagi Allah yang telah memberi kami makan, minum, dan menjadikan kami Muslim."</div></div></div></div>
+        </div>
+        <div class="sctrl"><button class="sbtn" onclick="cs(1,-1)">&#8592;</button><div class="sdots" id="d1"><div class="dot active" onclick="cg(1,0)"></div><div class="dot" onclick="cg(1,1)"></div><div class="dot" onclick="cg(1,2)"></div><div class="dot" onclick="cg(1,3)"></div></div><span class="sctr" id="c1">1 / 4</span><button class="sbtn" onclick="cs(1,1)">&#8594;</button></div>
+      </div>
+      <div class="sbar"><a href="poster/Poster Adab makan minum.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0d2a1e;padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600">&#128229; Unduh Poster PDF</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: STUDI KASUS -->
+<div class="page" id="studi">
+  <div class="ph gold"><div class="ey">Analisis</div><h2>Studi Kasus: Pinjaman Online Ilegal</h2><p>Analisis kritis praktik pinjaman online ilegal dalam perspektif syariah Islam.</p></div>
+  <div class="ct">
+    <div class="card">
+      <div class="ch"><div class="chi" style="background:#a67c3a">&#128269;</div><div><h3>Pinjaman Online Ilegal</h3><p>Analisis perspektif syariah Islam</p></div></div>
+      <div class="cb">
+        <p style="font-size:14px;color:var(--mu);margin-bottom:16px">Gambar studi kasus tersedia di file <code>foto/studi kasus.png</code>.</p>
+        <div class="qb"><div class="ql">&#128172; Opini Penulis</div><p>Praktik pinjaman online ilegal dalam studi kasus tersebut jelas bertentangan dengan prinsip syariah, karena mengandung unsur riba, eksploitasi, dan tidak memberikan kemaslahatan bagi masyarakat. Tingginya bunga serta tekanan dari penagih justru menimbulkan kerugian (dharar) baik secara ekonomi maupun psikologis. Oleh karena itu, diperlukan edukasi dan solusi keuangan berbasis syariah agar masyarakat tidak terjebak dalam praktik yang merugikan.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: ARTIKEL NILAI MORAL -->
+<div class="page" id="moral">
+  <div class="ph"><div class="ey">Artikel Ilmiah</div><h2>Menyikapi Perilaku Menyimpang dari Nilai Moral &amp; Agama</h2><p>Geser slide untuk membaca artikel ilmiah lengkap beserta studi kasus dan referensi.</p></div>
+  <div class="ct">
+    <div class="card" style="background:#0a1f14;border-color:#1a4a30">
+      <div class="poster-wrap">
+        <div class="slide-track" id="trk3">
+          <div class="slide"><div class="s1" style="min-height:500px"><div class="s1-orn"></div><div class="s1-icon">&#9997;</div><span class="s1-lbl">Artikel Ilmiah Ringan &middot; 2025</span><h2 style="font-size:24px;line-height:1.4;margin-bottom:10px">Menyikapi Masyarakat yang<br>Tidak Sesuai Nilai Moral<br><em>&amp; Nilai Agama</em></h2><p class="s1-sub">Diah Ayu Lestari &middot; Universitas Pelita Bangsa</p><div class="s1-box" style="max-width:520px;text-align:left;margin-top:16px"><div class="blbl">Kata Kunci</div><p style="font-style:normal;line-height:1.8">Nilai Moral &middot; Nilai Agama &middot; Penyimpangan Sosial &middot; Komunitas &middot; Dakwah &middot; Amar Ma'ruf Nahi Munkar</p><div class="src" style="font-size:11px;color:var(--gold);margin-top:8px;font-weight:600">&#128218; Rujukan: Al-Quran, Hadis, Soerjono Soekanto, Emile Durkheim, Ibnu Khaldun</div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:500px"><div class="s3-title"><h3>&#128204; Pendahuluan</h3><p>Latar belakang permasalahan nilai moral dan agama</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">1</div><div><h4>Krisis Nilai di Masyarakat Modern</h4><p>Globalisasi dan kemajuan teknologi informasi telah membuka akses tanpa batas terhadap berbagai budaya, ideologi, dan gaya hidup yang tidak selalu selaras dengan nilai moral dan ajaran agama yang dipegang masyarakat Indonesia.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">2</div><div><h4>Munculnya Komunitas Menyimpang</h4><p>Berbagai kelompok yang berperilaku di luar norma sosial dan agama kini semakin mudah ditemukan di dunia nyata maupun dunia maya, menimbulkan keprihatinan serius bagi pendidik dan tokoh agama.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="margin-top:4px;flex-shrink:0">3</div><div><h4>Urgensi Menyikapi dengan Bijak</h4><p>Islam mengajarkan pendekatan bijaksana &mdash; bukan kekerasan, melainkan dengan hikmah, nasihat yang baik, dan dialog penuh kasih agar respons masyarakat tepat dan tidak menimbulkan konflik baru.</p></div></div></div></div></div>
+          <div class="slide"><div class="s2" style="min-height:500px"><div class="s2-title"><h3>&#128214; Landasan Teori</h3><p>Definisi nilai moral, nilai agama, dan penyimpangan sosial</p></div><div class="agrid"><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#9878;</div><h4>Nilai Moral</h4><p>Seperangkat prinsip perilaku yang dianggap baik oleh masyarakat. Soerjono Soekanto (2012): nilai sosial adalah konsepsi abstrak tentang apa yang dianggap baik dan buruk.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128332;</div><h4>Nilai Agama</h4><p>Nilai bersumber dari wahyu Allah SWT dan sunnah Rasulullah SAW, mencakup aqidah, syariah, dan akhlak. Bersifat mutlak dan universal karena bersumber dari Dzat Yang Maha Sempurna.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128260;</div><h4>Penyimpangan Sosial</h4><p>Emile Durkheim (1895): penyimpangan (deviance) adalah perilaku yang melanggar norma kolektif. Dalam Islam, ini terjadi ketika perilaku bertentangan dengan nilai syariat.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128220;</div><h4>Landasan Al-Quran</h4><p>"Dan hendaklah ada di antara kamu segolongan umat yang menyeru kepada kebajikan, menyuruh kepada yang ma'ruf dan mencegah dari yang munkar." (QS. Ali Imran: 104)</p></div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:500px"><div class="s3-title"><h3>&#9888; Bentuk-Bentuk Penyimpangan</h3><p>Komunitas yang tidak sesuai nilai moral &amp; agama</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">A</div><div class="dico">&#127987;</div><div><h4>Komunitas LGBT</h4><p>Menormalisasi orientasi seksual di luar fitrah. Bertentangan dengan QS. An-Naml: 54-55, QS. Al-A'raf: 80-81, dan merusak institusi keluarga sebagai pondasi peradaban.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">B</div><div class="dico">&#127867;</div><div><h4>Komunitas Pergaulan Bebas</h4><p>Mempromosikan gaya hidup hedonistik, seks bebas, dan konsumsi alkohol. Bertentangan dengan nilai kesucian diri (iffah) dalam Islam dan merusak generasi muda bangsa.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">C</div><div class="dico">&#128138;</div><div><h4>Komunitas Narkoba</h4><p>Merusak akal &mdash; salah satu dari lima hal pokok yang wajib dijaga dalam Islam (al-kulliyat al-khams). Menghancurkan potensi SDM dan tatanan keluarga.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">D</div><div class="dico">&#127920;</div><div><h4>Komunitas Judi Online</h4><p>Islam mengharamkan maisir (perjudian) dalam QS. Al-Maidah: 90-91 karena menimbulkan permusuhan, kerusakan ekonomi keluarga, dan adiksi perilaku.</p></div></div></div></div></div>
+          <div class="slide"><div class="s4" style="min-height:500px;padding:32px"><div class="s4-who" style="margin-bottom:14px">&#128269; Studi Kasus 1: Komunitas LGBT</div><p class="s4-txt" style="font-size:14px;margin-bottom:16px;font-style:normal;text-align:left">Berdasarkan survei SMRC (2016) dan laporan ILGA World (2023), Indonesia termasuk negara dengan tingkat penolakan tertinggi terhadap LGBT di Asia &mdash; 87% masyarakat menganggap perilaku ini tidak dapat diterima secara moral dan agama.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:580px"><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Fakta Lapangan</div><div class="btr">Komunitas aktif di platform digital; acara "pride" pernah digelar di beberapa kota sebelum dibubarkan aparat dan ormas</div></div><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Respons Masyarakat</div><div class="btr">MUI mengeluarkan fatwa haram. Pemerintah menutup aplikasi dan grup media sosial LGBT</div></div><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Dalil Pelarangan</div><div class="btr">QS. An-Naml: 54-55 &middot; QS. Al-A'raf: 80-81 &middot; HR. Ahmad &amp; Abu Daud</div></div><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">Dampak Sosial</div><div class="btr">Kerusakan institusi keluarga, disorientasi nilai pada generasi muda, dan konflik sosial</div></div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:500px"><div class="s3-title"><h3>&#128269; Studi Kasus 2: Komunitas Judi Online</h3><p>Penyimpangan finansial dan moral yang meluas di Indonesia</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#128202;</div><div><h4>Data &amp; Fakta</h4><p>PPATK (2023) mencatat perputaran uang judi online di Indonesia mencapai Rp 327 triliun per tahun, dengan 3,2 juta pemain aktif &mdash; mayoritas berusia produktif 17&ndash;45 tahun.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#9888;</div><div><h4>Penyimpangan Nilai</h4><p>Judi online melanggar nilai kerja keras Islami, nilai keadilan ekonomi, dan nilai kejujuran. Komunitas penjudi menormalisasi cara memperoleh harta secara bathil (QS. An-Nisa: 29).</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#128148;</div><div><h4>Dampak pada Keluarga</h4><p>Ratusan kasus perceraian, penelantaran anak, dan tindakan kriminal tercatat akibat adiksi judi online. Banyak korban kehilangan seluruh aset keluarga.</p></div></div><div class="ditem" style="align-items:flex-start;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3)"><div class="dnum" style="flex-shrink:0;margin-top:4px;background:#c9a84c;color:#0d2a1e">Q</div><div><h4 style="color:#f0d89a">QS. Al-Maidah: 90</h4><p style="color:rgba(255,255,255,.8);font-style:italic">"Sesungguhnya khamar, berjudi, berkorban untuk berhala, mengundi nasib adalah perbuatan keji termasuk perbuatan syaitan. Maka jauhilah perbuatan-perbuatan itu."</p></div></div></div></div></div>
+          <div class="slide"><div class="s2" style="min-height:500px"><div class="s2-title"><h3>&#128161; Cara Menyikapi Penyimpangan</h3><p>Pendekatan Islam yang bijak, tegas, dan berkeadaban</p></div><div class="agrid"><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#129330;</div><h4>1. Amar Ma'ruf Nahi Munkar</h4><p>Menyeru kepada kebaikan dan mencegah kemungkaran dengan cara hikmah sesuai QS. Ali Imran: 104. Bukan kekerasan, melainkan dakwah yang santun.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128172;</div><h4>2. Dialog &amp; Hikmah</h4><p>"Serulah manusia ke jalan Tuhanmu dengan hikmah dan pelajaran yang baik." (QS. An-Nahl: 125). Hindari stigma dan kekerasan.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#127979;</div><h4>3. Edukasi &amp; Literasi Nilai</h4><p>Perkuat pendidikan moral dan agama sejak dini. Keluarga, sekolah, dan masjid harus bersinergi membentuk generasi berkarakter.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#127963;</div><h4>4. Peran Negara</h4><p>Negara berkewajiban menjaga ketertiban moral publik melalui penegakan hukum yang adil, pemblokiran konten berbahaya, dan program rehabilitasi.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#10084;</div><h4>5. Tetap Jaga Ukhuwah</h4><p>Membenci perbuatan bukan berarti membenci pelaku. Islam mengajarkan tetap mendoakan kebaikan dan membuka pintu taubat selebar-lebarnya.</p></div><div class="acard" style="flex-direction:column;gap:8px"><div class="acard-ico">&#128737;</div><h4>6. Perkuat Benteng Diri</h4><p>Perbanyak ibadah dan bergaul dengan komunitas positif. "Seseorang itu tergantung agama temannya." (HR. Abu Daud)</p></div></div></div></div>
+          <div class="slide"><div class="s3" style="min-height:500px"><div class="s3-title"><h3>&#128208; Analisis Perspektif Islam</h3><p>Teori dan dalil menyikapi penyimpangan sosial</p></div><div class="dlist"><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#128293;</div><div><h4>Hadis Arbain No. 34 &mdash; Tiga Tingkatan</h4><p>"Barangsiapa melihat kemungkaran, hendaklah ia mengubahnya dengan tangannya; jika tidak mampu, dengan lisannya; jika tidak mampu, dengan hatinya &mdash; dan itu selemah-lemahnya iman." (HR. Muslim No. 49)</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#9879;</div><div><h4>Maqashid Syariah</h4><p>Penyimpangan sosial mengancam lima tujuan pokok syariat (al-kulliyat al-khams): penjagaan agama, jiwa, akal, keturunan, dan harta. Setiap respons harus diarahkan memulihkan kelima tujuan tersebut.</p></div></div><div class="ditem" style="align-items:flex-start"><div class="dnum" style="flex-shrink:0;margin-top:4px">&#127807;</div><div><h4>Pendekatan Sosiologis-Islami (Ibnu Khaldun)</h4><p>Dalam Muqaddimah, kohesi sosial ('ashabiyyah) berbasis nilai agama adalah kunci ketahanan masyarakat dari penyimpangan. Komunitas yang solid secara moral lebih mampu menangkal pengaruh negatif.</p></div></div><div class="ditem" style="align-items:flex-start;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3)"><div class="dnum" style="flex-shrink:0;margin-top:4px;background:#c9a84c;color:#0d2a1e">Q</div><div><h4 style="color:#f0d89a">QS. Al-Baqarah: 256</h4><p style="color:rgba(255,255,255,.8);font-style:italic">"Tidak ada paksaan untuk (memasuki) agama Islam." Islam menghormati kebebasan individu sekaligus menjaga ketertiban moral kolektif melalui dakwah, bukan pemaksaan.</p></div></div></div></div></div>
+          <div class="slide"><div class="s4" style="min-height:500px;padding:32px"><div class="s4-who" style="margin-bottom:10px">&#128203; Kesimpulan &amp; Referensi</div><p class="s4-txt" style="font-size:14px;margin-bottom:18px;font-style:normal;text-align:left;max-width:600px">Menyikapi masyarakat yang menyimpang dari nilai moral dan agama membutuhkan keseimbangan antara <strong style="color:var(--gold)">ketegasan prinsip</strong> dan <strong style="color:var(--gold)">kelembutan dakwah</strong>. Islam memberikan panduan komprehensif melalui amar ma'ruf nahi munkar, pendekatan hikmah, dan penguatan institusi keluarga serta pendidikan.</p><div style="display:flex;flex-direction:column;gap:8px;width:100%;max-width:580px"><div class="s4-box" style="margin-top:0;text-align:left"><div class="blbl">&#128218; Referensi</div><div class="btr">&middot; Al-Quran Al-Karim (QS. Ali Imran:104, An-Nahl:125, Al-Maidah:90, Al-Baqarah:256)<br>&middot; HR. Muslim No. 49 (Hadis Arbain Nawawi No. 34)<br>&middot; Soekanto, S. (2012). Sosiologi Suatu Pengantar. Jakarta: Rajawali Pers<br>&middot; Durkheim, E. (1895). The Rules of Sociological Method. New York: Free Press<br>&middot; Ibnu Khaldun. (1377). Muqaddimah. Beirut: Dar Al-Fikr<br>&middot; PPATK. (2023). Laporan Judi Online. Jakarta<br>&middot; ILGA World. (2023). State-Sponsored Homophobia Report. Geneva<br>&middot; MUI. (2014). Fatwa No. 57 Tahun 2014 tentang LGBT</div></div></div></div></div>
+        </div>
+        <div class="sctrl"><button class="sbtn" onclick="cs(3,-1)">&#8592;</button><div class="sdots" id="d3"><div class="dot active" onclick="cg(3,0)"></div><div class="dot" onclick="cg(3,1)"></div><div class="dot" onclick="cg(3,2)"></div><div class="dot" onclick="cg(3,3)"></div><div class="dot" onclick="cg(3,4)"></div><div class="dot" onclick="cg(3,5)"></div><div class="dot" onclick="cg(3,6)"></div><div class="dot" onclick="cg(3,7)"></div><div class="dot" onclick="cg(3,8)"></div></div><span class="sctr" id="c3">1 / 9</span><button class="sbtn" onclick="cs(3,1)">&#8594;</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  &copy; 2025 <strong style="color:#fff">Ruang Tauhid</strong> &middot; Diah Ayu Lestari &middot; Universitas Pelita Bangsa &nbsp;|&nbsp;
+  <a href="mailto:diahayu4927@gmail.com">diahayu4927@gmail.com</a>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.sidebar button[id^="nav-"]').forEach(function(b){b.classList.remove('active')});
+  var pg=document.getElementById(id),nav=document.getElementById('nav-'+id);
+  if(pg)pg.classList.add('active');
+  if(nav)nav.classList.add('active');
+  closeSb();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleSb(){document.getElementById('sb').classList.toggle('open');document.getElementById('ov').classList.toggle('show')}
+function closeSb(){document.getElementById('sb').classList.remove('open');document.getElementById('ov').classList.remove('show')}
+var S={1:{cur:0,total:4,trk:'trk1',dots:'d1',ctr:'c1'},2:{cur:0,total:8,trk:'trk2',dots:'d2',ctr:'c2'},3:{cur:0,total:9,trk:'trk3',dots:'d3',ctr:'c3'}};
+function cu(n){var s=S[n];document.getElementById(s.trk).style.transform='translateX(-'+s.cur*100+'%)';document.querySelectorAll('#'+s.dots+' .dot').forEach(function(d,i){d.classList.toggle('active',i===s.cur)});document.getElementById(s.ctr).textContent=(s.cur+1)+' / '+s.total}
+function cs(n,d){var s=S[n];s.cur=(s.cur+d+s.total)%s.total;cu(n)}
+function cg(n,i){S[n].cur=i;cu(n)}
+var sx=0;
+document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX});
+document.addEventListener('touchend',function(e){
+  var diff=sx-e.changedTouches[0].clientX;
+  if(Math.abs(diff)<40)return;
+  var map={poster:1,artikel:2,moral:3};
+  var id=Object.keys(map).find(function(id){return document.getElementById(id).classList.contains('active')});
+  if(id)cs(map[id],diff>0?1:-1);
+});
+document.addEventListener('keydown',function(e){
+  var map={poster:1,artikel:2,moral:3};
+  var id=Object.keys(map).find(function(id){return document.getElementById(id).classList.contains('active')});
+  if(!id)return;
+  if(e.key==='ArrowRight')cs(map[id],1);
+  if(e.key==='ArrowLeft')cs(map[id],-1);
+});
+setInterval(function(){if(document.getElementById('poster').classList.contains('active'))cs(1,1)},6000);
+</script>
+</body>
+</html>
